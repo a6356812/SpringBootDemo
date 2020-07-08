@@ -40,6 +40,69 @@ public class UserController {
         List<Hobby> list=hobbyService.list();
         return BuildResult.buildSuccess(list);
     }
+    /**
+     * 查找所有的用户，以List的格式返回
+     * @return 若成功则返回SuccessResult携带List格式的User数据，若失败则返回FailResult
+     */
+    @GetMapping("/listUser")
+    public Result listUser(Integer page,Integer size){
+        PageHelper.startPage(page,size);
+        List<UserDto> list=userService.listUserDto();
+        PageInfo pageInfo=new PageInfo<>(list);
+        if(list!=null){
+            return BuildResult.buildSuccess(pageInfo);
+        }
+        else{
+            return BuildResult.buildFail(MessageCode.REQUEST_FAILED);
+        }
+    }
+
+    /**
+     * 根据用户id从redis中查询所有登录记录
+     * @param id
+     * @return 若成功则返回SuccessResult携带List格式的字符串登录数据，若失败则返回FailResult
+     */
+    @GetMapping("/listLoginInfo")
+    public Result listLoginInfo(Long id){
+        List<String> list=userService.getLoginInfo(id);
+       if(list!=null){
+           return BuildResult.buildSuccess(list);
+       }else {
+           return BuildResult.buildFail(MessageCode.REQUEST_FAILED);
+       }
+    }
+
+    /**
+     * 根据用户名称从数据库中查找该用户
+     * @param name
+     * @return 若成功则返回SuccessResult携带UserDto数据，若失败则返回FailResult
+     */
+    @GetMapping("/selectUserByName")
+    public Result saveUser(String name){
+        UserDto userDto=userService.selectUserDtoByName(name);
+        if(userDto!=null){
+            return BuildResult.buildSuccess(userDto);
+        }
+        else{
+            return BuildResult.buildFail(MessageCode.REQUEST_FAILED);
+        }
+    }
+
+    /**
+     * 根据用户id从数据库中查找该用户
+     * @param id
+     * @return 若成功则返回SuccessResult携带UserDto数据，若失败则返回FailResult
+     */
+    @GetMapping("/selectUserDtoById")
+    public Result selectUserDtoById(Long id){
+        UserDto userDto=userService.selectUserDtoById(id);
+        if(userDto!=null){
+            return BuildResult.buildSuccess(userDto);
+        }
+        else{
+            return BuildResult.buildFail(MessageCode.REQUEST_FAILED);
+        }
+    }
 
     /**
      * 根据传入的User对象，将其存入数据库的User表中
@@ -60,52 +123,15 @@ public class UserController {
         }
     }
 
-
-    @GetMapping("/selectUserByName")
-    public Result saveUser(String name){
-        UserDto userDto=userService.selectUserDtoByName(name);
-        if(userDto!=null){
-            return BuildResult.buildSuccess(userDto);
-        }
-        else{
-            return BuildResult.buildFail(MessageCode.REQUEST_FAILED);
-        }
-    }
-
     /**
-     * 查找所有的用户，以List的格式返回
-     * @return 若成功则返回SuccessResult携带List格式的User数据，若失败则返回FailResult
+     * 根据用户id,更新该用户，value为传入的user中的属性
+     * @param user
+     * @return 若成功则返回SuccessResult，若失败则返回FailResult
      */
-    @GetMapping("/listUser")
-    public Result listUser(Integer page,Integer size){
-        PageHelper.startPage(page,size);
-        List<UserDto> list=userService.listUserDto();
-        PageInfo pageInfo=new PageInfo<>(list);
-        if(list!=null){
-            return BuildResult.buildSuccess(pageInfo);
-        }
-        else{
-            return BuildResult.buildFail(MessageCode.REQUEST_FAILED);
-        }
-    }
-
-
-    @GetMapping("/selectUserDtoById")
-    public Result selectUserDtoById(Long id){
-        UserDto userDto=userService.selectUserDtoById(id);
-        if(userDto!=null){
-            return BuildResult.buildSuccess(userDto);
-        }
-        else{
-            return BuildResult.buildFail(MessageCode.REQUEST_FAILED);
-        }
-    }
-
     @PostMapping("/updateUser")
     public Result updateUser(User user){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id",user.getId());
-
         if(userService.updateUser(user,queryWrapper)){
             return BuildResult.buildSuccess();
         }
@@ -129,11 +155,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/listLoginInfo")
-    public Result listLoginInfo(Long id){
-        List<String> list=userService.getLoginInfo(id);
-        return BuildResult.buildSuccess(list);
-    }
+
 
 
 }

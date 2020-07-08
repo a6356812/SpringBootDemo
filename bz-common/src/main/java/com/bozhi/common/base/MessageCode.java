@@ -8,6 +8,7 @@ public enum MessageCode {
     REQUEST_SUCCESS(20000,"请求成功!"),
     REMOVE_POSITION_FAILED(3100,"该职位已存在用户，不可删除"),
     SAVE_USER_FAILED(3200,"该用户已存在"),
+    REQUEST_EXCEPTION(3300,"系统开小差了"),
     REQUEST_FAILED(3000,"请求失败");
 
 

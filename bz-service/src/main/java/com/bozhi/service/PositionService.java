@@ -4,4 +4,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.bozhi.bean.Position;
 
 public interface PositionService extends IService<Position> {
+    public Integer removePosition(Long id);
 }

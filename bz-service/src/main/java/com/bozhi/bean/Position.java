@@ -1,10 +1,13 @@
 package com.bozhi.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import java.util.Date;
 
 public class Position {
+    @JSONField(serializeUsing = ToStringSerializer.class)
     private Long id;
     private String name;
     private Date created;

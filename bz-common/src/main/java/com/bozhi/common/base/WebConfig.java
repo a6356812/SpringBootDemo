@@ -15,6 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import java.util.List;
 
+/**
+ * 全局拦截转换器
+ */
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
 

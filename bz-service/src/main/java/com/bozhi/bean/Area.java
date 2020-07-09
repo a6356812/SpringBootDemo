@@ -1,7 +1,9 @@
 package com.bozhi.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
 public class Area {
 
     @TableId(value = "id",type = AUTO)
+    @JSONField(serializeUsing = ToStringSerializer.class)
     private Long id;
     private String areaName;
     private Integer level;

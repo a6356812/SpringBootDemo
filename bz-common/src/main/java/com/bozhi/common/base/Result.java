@@ -3,7 +3,7 @@ package com.bozhi.common.base;
 import java.io.Serializable;
 
 /**
- * Created by zxd on 2020/4/20
+ * 向前端返回的result
  **/
 public class Result<T> implements Serializable {
 

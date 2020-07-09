@@ -8,5 +8,4 @@ import java.util.Map;
 
 public interface AreaService extends IService<Area> {
     Map<String,Object> listFullArea(Long id);
-    public List<Area> listTreeArea(Long id);
 }

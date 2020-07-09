@@ -1,7 +1,7 @@
 package com.bozhi.common.base;
 
 /**
- * Created by zxd on 2020/4/20
+ * 枚举各种Code以及message
  **/
 public enum MessageCode {
 

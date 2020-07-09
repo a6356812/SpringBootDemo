@@ -28,10 +28,11 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, Position> i
         List<User> list= userService.listByPosition(id);
         try {
             if(list!=null&&list.size()>0){
-                return MessageCode.REQUEST_SUCCESS.getCode();
+                return MessageCode.REMOVE_POSITION_FAILED.getCode();
             }
             else {
-                return MessageCode.REMOVE_POSITION_FAILED.getCode();
+                positionMapper.deleteById(id);
+                return MessageCode.REQUEST_SUCCESS.getCode();
             }
         }catch (Exception e){
             return MessageCode.REQUEST_FAILED.getCode();

@@ -2,7 +2,7 @@ package com.bozhi.common.base;
 
 
 /**
- * Created by zxd on 2020/4/20
+ * 快速构建Result
  **/
 public class BuildResult {
 

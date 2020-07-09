@@ -16,6 +16,11 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements Ar
     @Autowired
     private AreaMapper areaMapper;
 
+    /**
+     * 根据传入的id，查询出该地址的完整路径，以及拼接的字符串
+     * @param id
+     * @return 以Map的形式返回，areaName为完整路径字符串，areaList为完整路径链表
+     */
     @Override
     public Map<String,Object> listFullArea(Long id) {
         List<Area> list = areaMapper.selectFullArea(id);
@@ -27,11 +32,5 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements Ar
         map.put("areaName",area.toString());
         map.put("areaList",list);
         return map;
-    }
-
-    @Override
-    public List<Area> listTreeArea(Long id) {
-        List<Area> list = areaMapper.selectFullArea(id);
-        return list;
     }
 }
